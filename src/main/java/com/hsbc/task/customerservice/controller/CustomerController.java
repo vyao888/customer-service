@@ -23,7 +23,7 @@ public class CustomerController {
   @GetMapping("/{name}")
   public ResponseEntity<Customer> getByName(@PathVariable(value = "name") String name) {
     Util.validate(name, "Customer name");
-    Optional<Customer> optional = this.repository.findById(name);
+    Optional<Customer> optional = this.repository.findByName(name);
     if(optional.isEmpty()) {
       throw new ResourceNotFoundException("No customer found for name:" + name);
     }
@@ -35,7 +35,7 @@ public class CustomerController {
                                               @PathVariable(value = "accountId") String accountId) {
     Util.validate(name, "Customer name");
     Util.validate(accountId, "Customer accountId");
-    Customer customer = this.repository.findById(name)
+    Customer customer = this.repository.findByName(name)
       .orElseThrow( () -> new ResourceNotFoundException("No customer found for name:" + name));
 
     BigDecimal balance = customer.getAccounts().stream()
@@ -53,7 +53,7 @@ public class CustomerController {
   public ResponseEntity<String> createCustomer(@RequestBody Customer customer) {
     Objects.requireNonNull(customer, "Customer must be set");
     String name = customer.getName();
-    if(this.repository.existsById(name)) {
+    if(this.repository.existsByName(name)) {
       throw new IllegalArgumentException(String.format("Customer by name: %s already exists.", name));
     }
     this.repository.save(customer);
@@ -65,7 +65,7 @@ public class CustomerController {
                                             @RequestBody Account account) {
     Util.validate(name, "Customer name");
     Objects.requireNonNull(account, "Account must be set");
-    Customer customer = this.repository.findById(name)
+    Customer customer = this.repository.findByName(name)
       .orElseThrow( () -> new ResourceNotFoundException("No customer found for name:" + name));
     String accountId = account.getAccountId();
     Optional<Account> optional = customer.getAccounts().stream()

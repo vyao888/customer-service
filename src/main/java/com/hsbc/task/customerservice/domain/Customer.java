@@ -3,6 +3,7 @@ package com.hsbc.task.customerservice.domain;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
+import org.springframework.data.annotation.Id;
 
 import java.time.LocalDate;
 import java.util.List;
