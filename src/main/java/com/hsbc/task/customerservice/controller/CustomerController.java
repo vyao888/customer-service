@@ -21,7 +21,7 @@ public class CustomerController {
   private CustomerRepository repository;
 
   @GetMapping("/{name}")
-  public ResponseEntity<Customer> getByName(@PathVariable(value = "name") String name) {
+  public ResponseEntity<Customer> getAccountBalanceByNameAndAccountId(@PathVariable(value = "name") String name) {
     Util.validate(name, "Customer name");
     Optional<Customer> optional = this.repository.findByName(name);
     if(optional.isEmpty()) {
@@ -31,8 +31,8 @@ public class CustomerController {
   }
 
   @GetMapping("/{name}/{accountId}")
-  public ResponseEntity<BigDecimal> getByName(@PathVariable(value = "name") String name,
-                                              @PathVariable(value = "accountId") String accountId) {
+  public ResponseEntity<BigDecimal> getAccountBalanceByNameAndAccountId(
+      @PathVariable(value = "name") String name, @PathVariable(value = "accountId") String accountId) {
     Util.validate(name, "Customer name");
     Util.validate(accountId, "Customer accountId");
     Customer customer = this.repository.findByName(name)
@@ -76,6 +76,7 @@ public class CustomerController {
         String.format("Account already exists by the accountId: %s for the customer: %s", accountId, name));
     }
     customer.getAccounts().add(account);
+    this.repository.deleteByName(name);
     this.repository.save(customer);
     return ResponseEntity.ok().body(true);
   }

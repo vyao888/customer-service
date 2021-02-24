@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class AccountTest {
   @Test
   public void constructAccountOk() {
-    Account a = DomainFactoryForTest.createAccount();
+    Account a = DomainFactoryForTest.createCurrentAccount();
     Assertions.assertNotNull(a);
   }
 

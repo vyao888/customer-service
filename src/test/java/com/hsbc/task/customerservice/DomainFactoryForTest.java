@@ -5,7 +5,6 @@ import com.hsbc.task.customerservice.domain.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -43,13 +42,23 @@ final public class DomainFactoryForTest {
       .build();
   }
 
-  public static Account createAccount() {
+  public static Account createCurrentAccount() {
     return Account.builder()
       .accountId("12")
       .startDate(LocalDateTime.now())
       .transactions(createTransactions())
       .balance(new BigDecimal("1000.00"))
       .type(ProductType.Current)
+      .build();
+  }
+
+  public static Account createSavingAccount() {
+    return Account.builder()
+      .accountId("2")
+      .startDate(LocalDateTime.now())
+      .transactions(createTransactions())
+      .balance(new BigDecimal("10000.00"))
+      .type(ProductType.Saving)
       .build();
   }
 
@@ -85,7 +94,7 @@ final public class DomainFactoryForTest {
   }
 
   private static List<Account> createAccounts() {
-    return Arrays.asList(new Account[]{createAccount()}.clone());
+    return Arrays.asList(new Account[]{createCurrentAccount()}.clone());
   }
 
 }
