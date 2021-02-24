@@ -1,8 +1,8 @@
 server:
-  port: 8181
+  port: 8000
 spring:
   data:
     mongodb:
-      host: localhost
+      host: mongodb
       database: customer-service
       port: 27017

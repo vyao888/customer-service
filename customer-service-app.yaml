@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: customer-service
+  labels:
+    app: customer-service
+spec:
+  selector:
+    app: customer-service
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+      nodePort: 30010
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: customer-service
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: customer-service
+        version: v1
+    spec:
+      containers:
+        - name: customer-service-app
+          image: vyao8888/customer-service-app:1:0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: MONGODB_HOST
+              value: mongodb
+          ports:
+            - containerPort: 8000
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 5

@@ -35,7 +35,12 @@ The customer service has been developed using Spring Boot using the following te
   - Web
   - Spring data for Mongondb
   - Lombok
-  
+
+### Assumptions
+
+- Exposed as REST API
+- No security considered due to time constraints
+
 
 ### Build and running the tests via Docker container
 Steps to build and run the test via the docker compose:
@@ -44,10 +49,17 @@ Steps to build and run the test via the docker compose:
     * docker-compose build
   - deploy the app with mongodb
     * docker-compose up
+  - run tests via mvn command line
+    * mvn test
   - shut down the docker compose
     * ctrl + c (will stop both containers)
   
 ### Deploy with Kubernetes
-The following guides illustrate how to use some features concretely:
+
+ - build docker image
+   * docker build -t customer-service-app:1.0 .
+ - publish it to docker hub
+   * docker tag customer-service-app:1.0 vyao8888/customer-service-app:1.0
+   * docker push vyao8888/customer-service-app:1.0
 
 
