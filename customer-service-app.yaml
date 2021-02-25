@@ -28,7 +28,8 @@ spec:
     spec:
       containers:
         - name: customer-service-app
-          image: vyao8888/customer-service-app:1:0
+          image: vyao8888/customer-service-app
+          tag: 1.0
           imagePullPolicy: IfNotPresent
           env:
             - name: MONGODB_HOST
