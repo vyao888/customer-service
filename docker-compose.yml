@@ -4,7 +4,7 @@ services:
     build: .
     restart: always
     ports:
-      - 8181:8181
+      - 8000:8000
     depends_on:
       - mongodb
   mongodb:
