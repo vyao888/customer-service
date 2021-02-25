@@ -63,3 +63,9 @@ Steps to build and run the test via the docker compose:
    * docker push vyao8888/customer-service-app:1.0
 
 
+### Kubernetes deployment not completed due to minikube does not work properly in my local environment; 
+
+The following two keubenetes scripts provided (not tested)
+- mongo.yaml for deploying mongodb
+- customer-service-app.yaml for deploying the customer service app
+  
